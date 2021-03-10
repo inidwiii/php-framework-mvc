@@ -6,6 +6,7 @@ class Application
 {
     public function __construct()
     {
-        echo 'hello from ' . __METHOD__;
+        $request = new Request();
+        echo $request->query('query1');
     }
 }
