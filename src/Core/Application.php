@@ -1,6 +1,6 @@
 <?php
 
-namespace Illuminate\Core;
+namespace Src\Core;
 
 class Application
 {
