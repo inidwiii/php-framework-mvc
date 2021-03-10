@@ -4,6 +4,7 @@ namespace Illuminate\Core;
 
 class Request
 {
+    private $_base;
     private $_host;
     private $_method;
     private $_path;
@@ -20,8 +21,19 @@ class Request
         $this->_path    = $_SERVER['REQUEST_URI'];
         $this->_port    = $_SERVER['SERVER_PORT'];
         $this->_scheme  = $_SERVER['REQUEST_SCHEME'];
+        $this->_base    = "{$this->_scheme}://{$this->_host}/gov/";
         $this->_input   = $_POST;
         $this->_query   = empty($_GET) ? [] : array_slice($_GET, 1);
+    }
+
+    public function baseUrl($suffix = null)
+    {
+        return $this->_base . trim($suffix ?? '/', '/');
+    }
+
+    public function host()
+    {
+        return $this->_host;
     }
 
     public function input($key = null, $default = null)
@@ -51,6 +63,11 @@ class Request
         if (is_null($key)) return $this->_query;
         if (!(bool) array_key_exists($key, $this->_query)) return $default;
         return htmlspecialchars(filter_var($this->_query[$key], FILTER_SANITIZE_STRING));
+    }
+
+    public function scheme()
+    {
+        return $this->_scheme;
     }
 
     public function url()
