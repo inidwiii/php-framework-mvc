@@ -50,7 +50,7 @@ class Request
 
     public function path()
     {
-        return $this->_path;
+        return str_replace('/gov', '', $this->_path);
     }
 
     public function port()

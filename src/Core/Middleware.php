@@ -10,7 +10,9 @@ class Middleware
     
     public function __construct()
     {
-        $this->_currentMiddleware = function (Request $request, Response $response) {};
+        $this->_currentMiddleware = function (Request $request, Response $response) {
+            return compact('request', 'response');
+        };
     }
 
     public function register(MiddlewareInterface $middleware)
@@ -23,8 +25,8 @@ class Middleware
         return $this;
     }
 
-    public function run()
+    public function run(Request $request, Response $response)
     {
-        return call_user_func($this->_currentMiddleware, new Request(), new Response());
+        return call_user_func($this->_currentMiddleware, $request, $response);
     }
 }

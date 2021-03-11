@@ -4,7 +4,7 @@ namespace Src\Core;
 
 class Response
 {
-    private $_code;
+    private $_code = 200;
 
     public function json($response)
     {
